@@ -69,92 +69,92 @@ def parallelise_components(component_data):
         
     return threads
 
-parallelisable_builds = parallelise_components(component_data = [
-
-      {
-          "name": "terraform/vpc/plan",
-          "ancestors": ["terraform/vpc/validate"],
-          "successors": ["terraform/vpc/run"]
-      },
-      {
-          "name": "terraform/vpc/run",
-          "ancestors": ["terraform/vpc/plan"],
-          "successors": ["terraform/vpc/test", "terraform/vpc/deploy"]
-      },
-      {
-          "name": "terraform/vpc/deploy",
-          "ancestors": ["terraform/vpc/run"],
-          "successors": []
-      },
-      {
-          "name": "terraform/vpc/test",
-          "ancestors": ["terraform/vpc/run"],
-          "successors": ["integration"]
-      },
-
-      {
-          "name": "terraform/users/validate",
-          "ancestors": [],
-          "successors": ["terraform/users/plan"]
-      },
-      {
-          "name": "terraform/users/plan",
-          "ancestors": ["terraform/users/validate"],
-          "successors": ["terraform/users/run"]
-      },
-      {
-          "name": "terraform/users/run",
-          "ancestors": ["terraform/users/plan"],
-          "successors": ["terraform/users/test"]
-      },
-      {
-          "name": "terraform/users/test",
-          "ancestors": ["terraform/users/run"],
-          "successors": ["integration"]
-      },
-      {
-          "name": "terraform/vpc/validate",
-          "ancestors": [],
-          "successors": ["terraform/vpc/plan"]
-      },
-      {   "name": "integration",
-        "ancestors": ["terraform/vpc/test", "terraform/users/test"],
-        "successors": ["terraform/services/validate"]
-      },
-      {
-        "name": "terraform/services/validate",
-        "ancestors": ["integration"],
-        "successors": []
-      },
-
-
-      {
-          "name": "terraform/bastion/plan",
-          "ancestors": ["terraform/bastion/validate"],
-          "successors": ["terraform/bastion/run"]
-      },
-      {
-          "name": "terraform/bastion/run",
-          "ancestors": ["terraform/bastion/plan"],
-          "successors": ["terraform/bastion/test"]
-      },
-      {
-          "name": "terraform/bastion/deploy",
-          "ancestors": ["terraform/bastion/run"],
-          "successors": []
-      },
-      {
-          "name": "terraform/bastion/test",
-          "ancestors": ["terraform/bastion/run"],
-          "successors": []
-      },
-      {
-          "name": "terraform/bastion/validate",
-          "ancestors": [],
-          "successors": ["terraform/bastion/plan"]
-      },
-
-
-      
- ])
-pprint(parallelisable_builds)
+#parallelisable_builds = parallelise_components(component_data = [
+#
+#      {
+#          "name": "terraform/vpc/plan",
+#          "ancestors": ["terraform/vpc/validate"],
+#          "successors": ["terraform/vpc/run"]
+#      },
+#      {
+#          "name": "terraform/vpc/run",
+#          "ancestors": ["terraform/vpc/plan"],
+#          "successors": ["terraform/vpc/test", "terraform/vpc/deploy"]
+#      },
+#      {
+#          "name": "terraform/vpc/deploy",
+#          "ancestors": ["terraform/vpc/run"],
+#          "successors": []
+#      },
+#      {
+#          "name": "terraform/vpc/test",
+#          "ancestors": ["terraform/vpc/run"],
+#          "successors": ["integration"]
+#      },
+#
+#      {
+#          "name": "terraform/users/validate",
+#          "ancestors": [],
+#          "successors": ["terraform/users/plan"]
+#      },
+#      {
+#          "name": "terraform/users/plan",
+#          "ancestors": ["terraform/users/validate"],
+#          "successors": ["terraform/users/run"]
+#      },
+#      {
+#          "name": "terraform/users/run",
+#          "ancestors": ["terraform/users/plan"],
+#          "successors": ["terraform/users/test"]
+#      },
+#      {
+#          "name": "terraform/users/test",
+#          "ancestors": ["terraform/users/run"],
+#          "successors": ["integration"]
+#      },
+#      {
+#          "name": "terraform/vpc/validate",
+#          "ancestors": [],
+#          "successors": ["terraform/vpc/plan"]
+#      },
+#      {   "name": "integration",
+#        "ancestors": ["terraform/vpc/test", "terraform/users/test"],
+#        "successors": ["terraform/services/validate"]
+#      },
+#      {
+#        "name": "terraform/services/validate",
+#        "ancestors": ["integration"],
+#        "successors": []
+#      },
+#
+#
+#      {
+#          "name": "terraform/bastion/plan",
+#          "ancestors": ["terraform/bastion/validate"],
+#          "successors": ["terraform/bastion/run"]
+#      },
+#      {
+#          "name": "terraform/bastion/run",
+#          "ancestors": ["terraform/bastion/plan"],
+#          "successors": ["terraform/bastion/test"]
+#      },
+#      {
+#          "name": "terraform/bastion/deploy",
+#          "ancestors": ["terraform/bastion/run"],
+#          "successors": []
+#      },
+#      {
+#          "name": "terraform/bastion/test",
+#          "ancestors": ["terraform/bastion/run"],
+#          "successors": []
+#      },
+#      {
+#          "name": "terraform/bastion/validate",
+#          "ancestors": [],
+#          "successors": ["terraform/bastion/plan"]
+#      },
+#
+#
+#      
+# ])
+#pprint(parallelisable_builds)
