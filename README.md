@@ -1,6 +1,6 @@
 # devops-schedule
 
-This script orders a tree work graph into a parallelisable runnable schedule.
+This script uses ortools to order a tree work graph into a parallelisable runnable schedule.
 
 ```
 [  # sequence of threads
