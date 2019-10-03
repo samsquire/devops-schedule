@@ -1,5 +1,7 @@
 # devops-schedule
 
+This does not work yet, I am still working on it.
+
 This script uses ortools to order a tree work graph into a parallelisable runnable schedule.
 
 ```
