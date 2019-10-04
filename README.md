@@ -4,6 +4,51 @@ This does not work yet, I am still working on it.
 
 This script uses ortools to order a tree work graph into a parallelisable runnable schedule.
 
+# returns
+
+```
+    {
+        "position": 0,
+        "name": "@ansible/worker-provision/package",
+        "successors": [
+            "@ansible/worker-provision/validate"
+        ],
+        "ancestors": []
+    },
+    {
+        "position": 1,
+        "name": "@ansible/worker-provision/validate",
+        "successors": [
+            "@ansible/worker-provision/plan"
+        ],
+        "ancestors": [
+            "@ansible/worker-provision/package"
+        ]
+    },
+    {
+        "position": 2,
+        "name": "@ansible/worker-provision/plan",
+        "successors": [
+            "@ansible/worker-provision/run"
+        ],
+        "ancestors": [
+            "@ansible/worker-provision/validate"
+        ]
+    },
+    {
+        "position": 3,
+        "name": "@ansible/worker-provision/run",
+        "successors": [
+            "@ansible/worker-provision/test"
+        ],
+        "ancestors": [
+            "@ansible/worker-provision/plan"
+        ]
+    }
+```
+
+# previous attempt output
+
 ```
 [  # sequence of threads
 [ ["task1", "task2"], ["task3", task4"], [] # sequence of run groups   ],
