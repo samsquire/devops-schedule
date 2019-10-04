@@ -1,36 +1,35 @@
+from threading import Thread
 import collections
 from ortools.sat.python import cp_model
 from pprint import pprint
- 
+import json
 
 def parallelise_components(component_data):
     """Schedule components for maximum paralellism"""
     model = cp_model.CpModel()
-    
+
     component_vars = {}
     task_run = collections.namedtuple('task_run', 'start group')
     horizon = len(component_data)
-    
+
     for component in component_data:
         suffix = component["name"]
         start_var = model.NewIntVar(0, horizon, 'start/' + suffix)
         group_var = model.NewIntVar(0, 100, 'group/' + suffix)
         component_vars[suffix] = task_run(start_var, group_var)
-        
+
     parallel_group = collections.defaultdict(list)
     successor_lookup = {}
     for component in component_data:
         this_var = component_vars[component["name"]]
-        
+
         for ancestor in component["ancestors"]:
             model.Add(component_vars[ancestor].start < this_var.start)
-            # model.Add(component_vars[ancestor].group == this_var.group)       
+            # model.Add(component_vars[ancestor].group == this_var.group)
         for successor in component["successors"]:
             model.Add(component_vars[successor].start > this_var.start)
         successor_lookup[component["name"]] = component["successors"]
-        
-        
-        
+
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
 
@@ -43,32 +42,19 @@ def parallelise_components(component_data):
         for component in component_data:
             position = solver.Value(component_vars[component["name"]].start)
             positions[component["name"]] = position
+            component["position"] = position
             orderings[position].append(component["name"])
-            
+
         highest = max(positions.values())
-        
-        def append_children(positions, thread, item):
-            for child in successor_lookup[item]:
-                thread[positions[child]].append(child)
-                append_children(positions, thread, child)
+        items = list(orderings.keys())
+        results = []
 
-        def dict_to_list(things):
-            items = []
-            for key in sorted(things):
-                items.append(things[key])
-            return items
+        pprint(results)
 
-        for item in orderings[0]:
-            thread = collections.defaultdict(list)
-            threads.append(thread)
-            thread[0] = [item]
-            append_children(positions, thread, item)
-        
-        for index, thread in enumerate(threads):
-            threads[index] = dict_to_list(threads[index])
-        
-    return threads
+    return list(sorted(component_data, key=lambda item: item["position"])), orderings
 
+parallelisable_builds = parallelise_components(component_data=json.loads(open("../backup-infra/builds/loaded.json").read()))
+pprint(parallelisable_builds)
 #parallelisable_builds = parallelise_components(component_data = [
 #
 #      {
@@ -155,6 +141,6 @@ def parallelise_components(component_data):
 #      },
 #
 #
-#      
+#
 # ])
 #pprint(parallelisable_builds)
