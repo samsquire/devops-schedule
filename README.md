@@ -7,6 +7,8 @@ This script uses csp.js to order a tree work graph into a paralellisable runnabl
 ## scheduler.py
 This script uses ortools to order a tree work graph into a parallelisable runnable schedule.
 
+# how to use
+
 Call `parallelise_components` on a list of dicts that look like this; each has a `name`, `ancestors` and `successors`. Note that ancestors are immediate ancestors, not all.
 
 ```
