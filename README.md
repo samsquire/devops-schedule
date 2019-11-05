@@ -1,10 +1,13 @@
 # devops-schedule
 
+You have a directed acyclic graph of processes that you can execute as a child process and you want to process the work with maximum parallelism. This repository orders the work that can be carried out simultaneously and in parallel. See my parallel-workers repository for an example of how to process the output of this schedule with parallelism.
+
 ## scheduler.js
 
 This script uses csp.js to order a tree work graph into a paralellisable runnable schedule.
 
 ## scheduler.py
+
 This script uses ortools to order a tree work graph into a parallelisable runnable schedule.
 
 # how to use
