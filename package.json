@@ -1,0 +1,14 @@
+{
+    "name": "devops-schedule",
+    "preferGlobal": true,
+    "version": "0.0.1",
+    "author": "Sam Squire <sam@samsquire.com>",
+    "description": "scheduler of trees",
+    "license": "MIT",
+    "engines": {
+        "node": ">=0.10"
+    },
+    "dependencies": {
+        "csp.js": "git+https://github.com/njoubert/csp.js.git"
+    }
+}
