@@ -1,0 +1,63 @@
+[
+	{
+	"name": "@ansible/machines/test",
+	"successors": [
+	  
+	],
+	"ancestors": [
+		"@ansible/machines/run"
+	]
+	},
+	    {
+        "name": "@ansible/machines/run",
+        "successors": [
+            "@ansible/machines/test",
+	    "@ansible/provision-workers/run"
+        ],
+        "ancestors": [
+            "@ansible/machines/plan"
+        ]
+    },
+	{
+        "name": "@ansible/machines/package",
+        "successors": [
+            "@ansible/machines/validate"
+        ],
+        "ancestors": []
+    },
+	{
+	"name": "@ansible/machines/documentation",
+	"successors": [
+		
+	],
+	"ancestors": []
+	},
+    {
+        "name": "@ansible/machines/validate",
+        "successors": [
+            "@ansible/machines/plan"
+        ],
+        "ancestors": [
+            "@ansible/machines/package"
+        ]
+    },
+    {
+        "name": "@ansible/machines/plan",
+        "successors": [
+            "@ansible/machines/run"
+        ],
+        "ancestors": [
+            "@ansible/machines/validate"
+        ]
+    },
+	{
+	"name": "@ansible/provision-workers/run",
+	"successors": [
+	  
+	],
+	"ancestors": [
+		"@ansible/machines/run"
+	]
+	}
+
+]
